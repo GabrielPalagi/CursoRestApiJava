@@ -3,6 +3,7 @@ package com.palagi.demo_park_api.service;
 
 import com.palagi.demo_park_api.entity.Cliente;
 import com.palagi.demo_park_api.exception.CpfUniqueViolationException;
+import com.palagi.demo_park_api.exception.EntityNotFoundException;
 import com.palagi.demo_park_api.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,4 +25,11 @@ public class ClienteService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public Cliente buscarPorId(Long id) {
+        return clienteRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Cliente id=%s nao encontrado.", id))
+        );
+
+    }
 }
