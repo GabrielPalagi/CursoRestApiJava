@@ -1,5 +1,6 @@
 package com.palagi.demo_park_api.jwt;
 
+import com.palagi.demo_park_api.config.EnvConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -16,17 +17,17 @@ import java.util.Date;
 @Slf4j
 public class JwtUtils {
 
-    public static final String JWT_BEARER = "Bearer ";
+    public static final String JWT_BEARER = EnvConfig.getString("JWT_BEARER");//"Bearer ";
 
-    public static final String JWT_AUTHORIZATION = "Authorization";
+    public static final String JWT_AUTHORIZATION = EnvConfig.getString("JWT_AUTHORIZATION");//"Authorization";
 
-    public static final String SECRET_KEY = "0123456789-0123456789-0123456789";
+    public static final String SECRET_KEY = EnvConfig.getString("SECRET_KEY");
 
-    public static final long EXPIRE_DAYS = 0;
+    public static final long EXPIRE_DAYS = EnvConfig.getLong("EXPIRE_DAYS");
 
-    public static final long EXPIRE_HOURS = 0;
+    public static final long EXPIRE_HOURS = EnvConfig.getLong("EXPIRE_HOURS");
 
-    public static final long EXPIRE_MINUTES = 30;
+    public static final long EXPIRE_MINUTES = EnvConfig.getLong("EXPIRE_MINUTES");
 
     private JwtUtils() {
     }
