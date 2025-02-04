@@ -5,10 +5,15 @@ import com.palagi.demo_park_api.entity.Cliente;
 import com.palagi.demo_park_api.exception.CpfUniqueViolationException;
 import com.palagi.demo_park_api.exception.EntityNotFoundException;
 import com.palagi.demo_park_api.repository.ClienteRepository;
+import com.palagi.demo_park_api.repository.projection.ClienteProjection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +36,10 @@ public class ClienteService {
                 () -> new EntityNotFoundException(String.format("Cliente id=%s nao encontrado.", id))
         );
 
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ClienteProjection> buscarTodos(Pageable pageable) {
+        return clienteRepository.findAllPageable(pageable);
     }
 }
